@@ -1,0 +1,17 @@
+{
+  "name": "gridsome",
+  "private": true,
+  "scripts": {
+    "build": "gridsome build",
+    "develop": "gridsome develop",
+    "explore": "gridsome explore"
+  },
+  "dependencies": {
+    "@gridsome/source-graphql": "^0.1.0",
+    "apollo-link-context": "^1.0.17",
+    "apollo-link-http": "^1.5.14",
+    "gridsome": "^0.6.0",
+    "gridsome-source-static-meta": "^1.0.0",
+    "node-fetch": "^2.6.0"
+  }
+}
