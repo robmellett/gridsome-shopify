@@ -23,7 +23,12 @@ query allProducts {
           id,
           title,
           handle
-        }
+        },
+        cursor
+      }
+      pageInfo {
+        hasNextPage,
+        hasPreviousPage
       }
     }
   }

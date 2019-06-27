@@ -25,14 +25,18 @@ module.exports = function (api) {
             edges {
               node {
                 id,
-                title,
                 handle
-              }
+              },
+              cursor
+            }
+            pageInfo {
+              hasNextPage,
+              hasPreviousPage
             }
           }
         }
       }
-    `)    
+    `)
 
    data.shopify.products.edges.forEach(({
      node
