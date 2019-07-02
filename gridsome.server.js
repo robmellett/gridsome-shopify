@@ -20,15 +20,17 @@ module.exports = function (api) {
 
     let hasNextPage = false;
     let queryCursor = "";
+    let queryParameters = {};
 
     do {
-      console.log("> New Iteration: ");
-      console.log(queryCursor);
+      if (queryCursor) {
+        queryParameters["cursor"] = queryCursor;
+      }
 
       const { data } = await graphql(`
         query($cursor: String) {
           shopify {
-            products(first: 1, after: $cursor) {
+            products(first: 250, after: $cursor) {
               pageInfo {
                 hasNextPage,
                 hasPreviousPage
@@ -44,12 +46,9 @@ module.exports = function (api) {
             }
           }
         }
-      `, { cursor: queryCursor });
+      `, queryParameters);
 
       data.shopify.products.edges.forEach(({ node, cursor }) => {
-
-        console.log(">>> " + node.title );
-        console.log("> " + cursor);
 
         createPage({
           path: `/products/${node.handle}`,
@@ -61,7 +60,7 @@ module.exports = function (api) {
           }
         });
 
-        // hasNextPage = data.shopify.products.pageInfo.hasNextPage;
+        hasNextPage = data.shopify.products.pageInfo.hasNextPage;
         queryCursor = cursor;
       })
     }
