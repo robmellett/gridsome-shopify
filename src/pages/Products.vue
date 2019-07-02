@@ -41,7 +41,7 @@ import { Pager } from 'gridsome';
 
 export default {
   metaInfo: {
-    title: 'About us'
+    title: 'Products'
   },
 
   components: {

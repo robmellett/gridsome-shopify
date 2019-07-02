@@ -25,7 +25,7 @@ query {
 
 ## Example with Cursor for Pagination
 ```graphql
-query {
+query($cursor: String) {
   shopify {
     products(first: 10, after: "eyJsYXN0X2lkIjoyMTY3MDc5NDAzNjE2LCJsYXN0X3ZhbHVlIjoiMjE2NzA3OTQwMzYxNiJ9") {
       pageInfo {
