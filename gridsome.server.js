@@ -19,15 +19,16 @@ module.exports = function (api) {
     // Use the Pages API here: https://gridsome.org/docs/pages-api
 
     let hasNextPage = false;
-    let queryCursor = ""; // after: "${queryCursor}"
+    let queryCursor = "";
 
     do {
+      console.log("> New Iteration: ");
       console.log(queryCursor);
 
       const { data } = await graphql(`
         query($cursor: String) {
           shopify {
-            products(first: 5, after: $cursor) {
+            products(first: 1, after: $cursor) {
               pageInfo {
                 hasNextPage,
                 hasPreviousPage
@@ -43,11 +44,12 @@ module.exports = function (api) {
             }
           }
         }
-      `);
+      `, { cursor: queryCursor });
 
       data.shopify.products.edges.forEach(({ node, cursor }) => {
 
         console.log(">>> " + node.title );
+        console.log("> " + cursor);
 
         createPage({
           path: `/products/${node.handle}`,
