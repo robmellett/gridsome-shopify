@@ -11,13 +11,14 @@
       </li>
     </ul>
 
+    <Pager :info="$page.shopify.products.pageInfo"/>
   </Layout>
 </template>
 
 <page-query>
-query allProducts {
-  shopify{
-    products(first:10) {
+query allProducts($cursor: String) {
+  shopify {
+    products(first:10, after: $cursor) @paginate {
       edges {
         node {
           id,
@@ -28,7 +29,7 @@ query allProducts {
       }
       pageInfo {
         hasNextPage,
-        hasPreviousPage
+        hasPreviousPage,
       }
     }
   }
@@ -36,9 +37,15 @@ query allProducts {
 </page-query>
 
 <script>
+import { Pager } from 'gridsome';
+
 export default {
   metaInfo: {
     title: 'About us'
   },
+
+  components: {
+    Pager
+  }
 }
 </script>
