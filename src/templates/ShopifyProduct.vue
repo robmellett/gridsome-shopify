@@ -9,9 +9,58 @@
 query Product ($handle: String!) {
   shopify {
     productByHandle(handle: $handle) {
-      id,
-      title,
+       collections(first: 10) {
+        edges {
+          cursor
+        }
+      }
+      createdAt
+      description
       descriptionHtml
+      handle
+      id
+      images(first: 10) {
+        edges {
+          node {
+            altText
+            id
+            src
+          }
+        }
+      }
+      onlineStoreUrl
+      options(first: 10) {
+        id
+        name
+        values
+      }
+      priceRange {
+        maxVariantPrice {
+          currencyCode
+          amount
+        }
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      productType
+      tags
+      title
+      variants(first: 10) {
+        edges {
+          node {
+            availableForSale
+            compareAtPrice
+            id
+            sku
+            selectedOptions {
+              name
+              value
+            }
+          }
+        }
+      }
     }
   }
 }
