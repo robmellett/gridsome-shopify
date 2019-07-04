@@ -6,20 +6,13 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 module.exports = function (api) {
 
-  api.loadSource(({ addContentType }) => {
+  api.loadSource(async ({ addContentType }) => {
     // Use the Data Store API here: https://gridsome.org/docs/data-store-api
 
     const contentType = addContentType({
       typeName: 'Product',
       route: 'products/:handle' // add this for one dynamic route...
     })
-
-    contentType.addNode({
-      id: 1,
-      title: 'Ideally, this should be a product from Shopify GraphQL',
-      path: 'test'
-    })
-
   });
 
   api.createPages(async ({ graphql, createPage }) => {
@@ -57,6 +50,7 @@ module.exports = function (api) {
 
       data.shopify.products.edges.forEach(({ node, cursor }) => {
 
+        // TODO: Attach these as a ContentType, instead of creating new pages
         createPage({
           path: `/products/${node.handle}`,
           component: './src/templates/Product.vue',
