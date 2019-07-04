@@ -10,9 +10,16 @@ module.exports = function (api) {
     // Use the Data Store API here: https://gridsome.org/docs/data-store-api
 
     const contentType = addContentType({
-      typeName: 'ShopifyProduct',
+      typeName: 'Product',
       route: 'products/:handle' // add this for one dynamic route...
     })
+
+    contentType.addNode({
+      id: 1,
+      title: 'Ideally, this should be a product from Shopify GraphQL',
+      path: 'test'
+    })
+
   });
 
   api.createPages(async ({ graphql, createPage }) => {
@@ -52,11 +59,12 @@ module.exports = function (api) {
 
         createPage({
           path: `/products/${node.handle}`,
-          component: './src/templates/ShopifyProduct.vue',
+          component: './src/templates/Product.vue',
           context: {
             id: node.id,
+            path: node.handle,
             handle: node.handle,
-            title: node.title
+            title: node.title,
           }
         });
 
